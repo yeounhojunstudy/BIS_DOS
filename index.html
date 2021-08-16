@@ -1,0 +1,152 @@
+<!doctype html>
+
+<head>
+    <meta charset="utf-8">
+    <title>2316 연호준</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style/style.css">
+</head>
+
+<body>
+    <div id="main">
+
+        <h1>버스 정보</h1>
+        <textarea name="result" id="result" style="width: 350px;;height: 300px;"></textarea>
+        <div>
+        &nbsp;&nbsp;
+        </div>
+        &nbsp;&nbsp;
+        <button class="green" id="Start">시작하기</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="red" id="Stop">종료하기</button>
+    </div>
+    
+    <script type="text/javascript" src="ggwave.js"></script>
+    <script type='text/javascript'>
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        window.OfflineAudioContext = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+
+        var context = null;
+        var recorder = null;
+
+        var ggwave = null;
+        var parameters = null;
+        var instance = null;
+
+        ggwave_factory().then(function(obj) {
+            ggwave = obj;
+        });
+
+
+        var result = document.getElementById("result");
+        var Start = document.getElementById("Start");
+        var Stop = document.getElementById("Stop");
+
+        function convertTypedArray(src, type) {
+            var buffer = new ArrayBuffer(src.byteLength);
+            var baseView = new src.constructor(buffer).set(src);
+            return new type(buffer);
+        }
+
+        function init() {
+            if (!context) {
+                context = new AudioContext({
+                    sampleRate: 48000
+                });
+
+                parameters = ggwave.getDefaultParameters();
+                parameters.sampleRateInp = context.sampleRate;
+                parameters.sampleRateOut = context.sampleRate;
+                instance = ggwave.init(parameters);
+            }
+        }
+    </script>
+    <script>
+        Start.addEventListener('click', function() {
+            init();
+
+            let constraints = {
+                audio: {
+                    // not sure if these are necessary to have
+                    echoCancellation: false,
+                    autoGainControl: false,
+                    noiseSuppression: false
+                }
+            };
+
+            navigator.mediaDevices.getUserMedia(constraints).then(function(e) {
+                mediaStream = context.createMediaStreamSource(e);
+
+                var bufferSize = 16 * 1024;
+                var numberOfInputChannels = 1;
+                var numberOfOutputChannels = 1;
+
+                if (context.createScriptProcessor) {
+                    recorder = context.createScriptProcessor(
+                        bufferSize,
+                        numberOfInputChannels,
+                        numberOfOutputChannels);
+                } else {
+                    recorder = context.createJavaScriptNode(
+                        bufferSize,
+                        numberOfInputChannels,
+                        numberOfOutputChannels);
+                }
+
+                recorder.onaudioprocess = function(e) {
+                    var source = e.inputBuffer;
+                    var res = ggwave.decode(instance, convertTypedArray(new Float32Array(source.getChannelData(0)), Int8Array));
+                    if (res) {
+                        // var data = res.split('\n');
+
+                        // let 버스번호 = data[0]
+                        // let 버스방향 = data[1]
+                        // let 버스종류 = data[2]
+                        // let 버스ID = data[3]
+
+                        // let 버스번호_c = "/" + 버스번호 + "/gi, 'b_id | '"
+                        // let 버스방향_c = "/" + 버스방향 + "/gi, 'b_way | '"
+                        // let 버스종류_c = "/" + 버스종류 + "/gi, 'b_tp | '"
+                        // let 버스ID_c = "/" + 버스ID + "/gi, 'b_no | '"
+
+                        // let 버스번호_r = 버스번호.replace(버스번호_c);
+                        // let 버스방향_r = 버스방향.replace(버스방향_c);
+                        // let 버스종류_r = 버스종류.replace(버스종류_c);
+                        // let 버스ID_r = 버스ID.replace(버스ID_c);
+                        // let 버스방향_r = 버스방향_r + "방향"
+
+                        // let final_r = 버스번호_r + "\n" + 버스방향_r + "\n" + 버스종류_r + "\n" + 버스ID_r
+
+                        // res = final_r;
+                        result.value = res;
+                    }
+                }
+
+                mediaStream.connect(recorder);
+                recorder.connect(context.destination);
+            }).catch(function(e) {
+                console.error(e);
+            });
+
+            result.value = '음파 신호를 찾는 중입니다...';
+            Start.hidden = true;
+            Stop.hidden = false;
+        });
+
+        Stop.addEventListener("click", function() {
+            if (recorder) {
+                recorder.disconnect(context.destination);
+                mediaStream.disconnect(recorder);
+                recorder = null;
+            }
+
+            result.value = '안내 중이 아닙니다. 안내를 원하시면 시작을 누르시거나, 마이크 권한 설정을 확인하십시오.';
+            Start.hidden = false;
+            Stop.hidden = true;
+        });
+
+        captureStop.click();
+    </script>
+</body>
+
+</html>
