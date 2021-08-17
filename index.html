@@ -63,6 +63,8 @@
     </script>
     <script>
         Start.addEventListener('click', function() {
+            Start.value = "시작하기";
+            Stop.value = "안내가 종료되었습니다";
             init();
 
             let constraints = {
@@ -114,6 +116,8 @@
         });
 
         Stop.addEventListener("click", function() {
+            Start.value = "시작하기";
+            Stop.value = "안내가 종료되었습니다";
             if (recorder) {
                 recorder.disconnect(context.destination);
                 mediaStream.disconnect(recorder);
@@ -121,8 +125,6 @@
             }
 
             status.innerText = '안내 중이 아닙니다. 안내를 원하시면 시작을 누르시거나, 마이크 권한 설정을 확인하십시오.';
-            Start.value = "시작하기";
-            Stop.value = "안내가 종료되었습니다";
         });
 
         captureStop.click();
