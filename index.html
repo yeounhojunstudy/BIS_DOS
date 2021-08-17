@@ -65,6 +65,7 @@
         Start.addEventListener('click', function() {
             Start.value = "시작하기";
             Stop.value = "안내가 종료되었습니다";
+            
             init();
 
             let constraints = {
@@ -111,8 +112,6 @@
             });
 
             status.innerText = '음파 신호를 찾는 중입니다...';
-            Start.value = "안내가 시작되었습니다";
-            Stop.value = "종료하기";
         });
 
         Stop.addEventListener("click", function() {
