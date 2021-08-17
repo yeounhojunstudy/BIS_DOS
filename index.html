@@ -96,7 +96,7 @@
                     var source = e.inputBuffer;
                     var res = ggwave.decode(instance, convertTypedArray(new Float32Array(source.getChannelData(0)), Int8Array));
                     if (res) {
-                       var audio = new Audio('오디오파일.mp3');
+                       var audio = new Audio('효과음.mp3');
                        audio.play();
                         result.innerText = res;
                     }
