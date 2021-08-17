@@ -96,27 +96,8 @@
                     var source = e.inputBuffer;
                     var res = ggwave.decode(instance, convertTypedArray(new Float32Array(source.getChannelData(0)), Int8Array));
                     if (res) {
-                        // var data = res.split('\n');
-
-                        // let 버스번호 = data[0]
-                        // let 버스방향 = data[1]
-                        // let 버스종류 = data[2]
-                        // let 버스ID = data[3]
-
-                        // let 버스번호_c = "/" + 버스번호 + "/gi, 'b_id | '"
-                        // let 버스방향_c = "/" + 버스방향 + "/gi, 'b_way | '"
-                        // let 버스종류_c = "/" + 버스종류 + "/gi, 'b_tp | '"
-                        // let 버스ID_c = "/" + 버스ID + "/gi, 'b_no | '"
-
-                        // let 버스번호_r = 버스번호.replace(버스번호_c);
-                        // let 버스방향_r = 버스방향.replace(버스방향_c);
-                        // let 버스종류_r = 버스종류.replace(버스종류_c);
-                        // let 버스ID_r = 버스ID.replace(버스ID_c);
-                        // let 버스방향_r = 버스방향_r + "방향"
-
-                        // let final_r = 버스번호_r + "\n" + 버스방향_r + "\n" + 버스종류_r + "\n" + 버스ID_r
-
-                        // res = final_r;
+                        
+                        let res = res.replace(/bun/, 번);
                         result.innerText = res;
                     }
                 }
