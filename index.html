@@ -117,7 +117,7 @@
                         // let final_r = 버스번호_r + "\n" + 버스방향_r + "\n" + 버스종류_r + "\n" + 버스ID_r
 
                         // res = final_r;
-                        result.value = res;
+                        result.innerText = res;
                     }
                 }
 
@@ -127,7 +127,7 @@
                 console.error(e);
             });
 
-            result.value = '음파 신호를 찾는 중입니다...';
+            result.innerText = '음파 신호를 찾는 중입니다...';
             Start.hidden = true;
             Stop.hidden = false;
         });
@@ -139,7 +139,7 @@
                 recorder = null;
             }
 
-            result.value = '안내 중이 아닙니다. 안내를 원하시면 시작을 누르시거나, 마이크 권한 설정을 확인하십시오.';
+            result.innerText = '안내 중이 아닙니다. 안내를 원하시면 시작을 누르시거나, 마이크 권한 설정을 확인하십시오.';
             Start.hidden = false;
             Stop.hidden = true;
         });
@@ -149,3 +149,4 @@
 </body>
 
 </html>
+
