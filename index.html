@@ -10,7 +10,8 @@
 <body>
     <div id="main">
         <h1>버스 정보</h1>
-        <p id="result" name="result" style="width: 350px;;height: 300px;">시작하기를 누르면 여기에 정보가 나옵니다.</p>
+        <p id="status" name="status" style="width:350px;;height:40px;">시작하기 버튼을 눌러 안내를 시작합니다.</p>
+        <p id="result" name="result" style="color: #fff;;width: 350px;;height: 100px;"></p>
         <div>
         &nbsp;&nbsp;
         </div>
@@ -36,7 +37,7 @@
             ggwave = obj;
         });
 
-
+        var status = document.getElementById("status");
         var result = document.getElementById("result");
         var Start = document.getElementById("Start");
         var Stop = document.getElementById("Stop");
@@ -97,7 +98,6 @@
                     var res = ggwave.decode(instance, convertTypedArray(new Float32Array(source.getChannelData(0)), Int8Array));
                     if (res) {
                         
-                        let res = res.replace(/bun/, 번);
                         result.innerText = res;
                     }
                 }
@@ -108,7 +108,7 @@
                 console.error(e);
             });
 
-            result.innerText = '음파 신호를 찾는 중입니다...';
+            status.innerText = '음파 신호를 찾는 중입니다...';
             Start.hidden = true;
             Stop.hidden = false;
         });
@@ -120,7 +120,7 @@
                 recorder = null;
             }
 
-            result.innerText = '안내 중이 아닙니다. 안내를 원하시면 시작을 누르시거나, 마이크 권한 설정을 확인하십시오.';
+            status.innerText = '안내 중이 아닙니다. 안내를 원하시면 시작을 누르시거나, 마이크 권한 설정을 확인하십시오.';
             Start.hidden = false;
             Stop.hidden = true;
         });
