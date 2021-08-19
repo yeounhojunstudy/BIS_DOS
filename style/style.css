@@ -85,9 +85,6 @@ div.bold {
     text-align: center;
     font-family: 'GmarketSansBold';
     font-size: 200%;
-    background: -webkit-linear-gradient(#8E2DE2, #4A00E0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 }
 
 div.reg {
