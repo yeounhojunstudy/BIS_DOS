@@ -1,6 +1,12 @@
 div{
   text-align: center; 
 }
+p{
+  text-align: center; 
+}
+b{
+  text-align: center; 
+}
 
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
