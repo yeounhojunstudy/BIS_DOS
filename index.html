@@ -4,20 +4,23 @@
     <meta charset="utf-8">
     <title>2316 연호준</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/style.css">
 </head>
 
 <body>
     <div id="main">
-        <h1>버스 정보</h1>
-        <div id="result" name="result" style="width: 350px;;height: 300px;">시작하기를 누르면 여기에 정보가 나옵니다.</div>
-        <div>
-        </div>
+        &nbsp;
+        <div class="bold">버스 정보</div>
+        &nbsp;
+        <div class="reg" id="result" name="result">시작하기를 누르면 여기에 정보가 나옵니다.</div>
+        &nbsp;
+    </div>
+    <div style="text-align: center" id="buttons">
         <button class="green" id="Start">시작하기</button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button class="red" id="Stop">종료하기</button>
-        <div>&nbsp;</div>
     </div>
+        &nbsp;
     
     <script type="text/javascript" src="ggwave.js"></script>
     <script type='text/javascript'>
@@ -126,8 +129,11 @@
 
         captureStop.click();
     </script>
-    <b>2316. 연호준</b>
-    <p>시각장애인의 버스 이용을 돕기 위한 음파 통신 시스템</p>
+    <div class="reg"style="font-weight: bold">2316. 연호준</div>
+    &nbsp;
+    <div class="reg">시각장애인의 버스 이용을 돕기 위한 음파 통신 시스템</div>
+    &nbsp;
+    <div class="light">ggwave 라이브러리가 활용되었습니다.</div>
 </body>
 
 </html>
